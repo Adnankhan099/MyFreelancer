@@ -168,7 +168,7 @@ const props = defineProps({
 });
 
 
-console.log(props.userDetail);
+// console.log(props.userDetail);
 const dialog = ref(false)
 const phonen = ref({value:''})
 

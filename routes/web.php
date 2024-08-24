@@ -28,7 +28,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'categories'=>[]
+        'categories' => []
     ]);
 })->name('/');
 Route::get('/categories', [CategoriesController::class, 'Categories'])->name('categories');
@@ -43,38 +43,37 @@ Route::get('/bill-boards', [WebFreelancerController::class, 'allBanners'])->name
 Route::get('/bill-board/{id}', [WebFreelancerController::class, 'billBoardDetail'])->name('bill-board');
 Route::get('/find-work', [WebFreelancerController::class, 'findWork'])->name('find-work');
 Route::get('job-detail/{slug}', [WebFreelancerController::class, 'jobDetail'])->name('job-detail');
-Route::get('admin-login',[AuthenticatedSessionController::class,'adminLogin'])->name('admin-dashboard');
+Route::get('admin-login', [AuthenticatedSessionController::class, 'adminLogin'])->name('admin-login');
 
 Route::get('proposal/{slug}', [WebFreelancerController::class, 'jobProposal'])->name('proposal');
 Route::post('proposal', [ProposalController::class, 'store'])->name('proposal.store');
 
-Route::get('admin-dashboard',[DashboardController::class,'index'])->name('admin-dashboard');
-
+Route::get('admin-dashboard', [DashboardController::class, 'index'])->name('admin-dashboard');
+Route::get('/{id}/public_profile', [ProfileController::class, 'public_profile'])->name('user.public.profile');
 Route::middleware(['auth', 'verifiedUser'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::post('/profile-images', [ProfileController::class, 'profileImages'])->name('profile-images');
 
     Route::post('updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
-    Route::resource('job',JobController::class);
-     Route::get('job/proposal/{slug}',[JobController::class,'jobProposal'])->name('job.proposal');
+    Route::resource('job', JobController::class);
+    Route::get('job/proposal/{slug}', [JobController::class, 'jobProposal'])->name('job.proposal');
     Route::get('/category-list', [BillBoardController::class, 'categoryList'])->name('category-list');
     Route::get('/sub-category-list/{id}', [BillBoardController::class, 'subCategories'])->name('sub-category-list');
     Route::post('/update-profile-pic', [ProfileController::class, 'profilePicUpload'])->name('update-profile-pic');
     Route::post('/update-address', [ProfileController::class, 'updateAddress'])->name('update-address');
-     Route::post('/verfication', [UserVerficationController::class, 'store'])->name('verfication');
-      Route::post('/current-photo', [UserVerficationController::class, 'currentPhoto'])->name('current-photo');
-  Route::post('/govt-id', [UserVerficationController::class, 'govId'])->name('govt-id');
-   Route::resource('/bill-board', BillBoardController::class);
+    Route::post('/verfication', [UserVerficationController::class, 'store'])->name('verfication');
+    Route::post('/current-photo', [UserVerficationController::class, 'currentPhoto'])->name('current-photo');
+    Route::post('/govt-id', [UserVerficationController::class, 'govId'])->name('govt-id');
+    Route::resource('/bill-board', BillBoardController::class);
 
-   Route::post('billboard-attach',[BillBoardController::class,'billBoardAttchs'])->name('billboard-attach');
-   
+    Route::post('/{id}/billboard-attach', [BillBoardController::class, 'billBoardAttchs'])->name('billboard-attach');
+
 });
 
 Route::get('/proxy', [ProxyController::class, 'proxy']);
-
 
 
 Route::post('/broadcasting/auth', function () {
@@ -82,7 +81,7 @@ Route::post('/broadcasting/auth', function () {
 });
 
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
-require __DIR__.'/api.php';
-require __DIR__.'/channels.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/api.php';
+require __DIR__ . '/channels.php';

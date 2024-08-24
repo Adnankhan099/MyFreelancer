@@ -7,7 +7,7 @@
       <img v-else width="20" src="@/assets/xmark-solid.svg" />
     </button>
       <p class="flex items-center py-2 space-x-3">
-        <a :href="route('/')"><img width="120" src="@/assets/logo2.png" /></a>
+        <Link :href="route('/')"><img width="120" src="@/assets/logo2.png" /></Link>
       </p>
       <nav class="flex items-center ml-auto">
         <ul class="*:inline-block *:mx-2 *:px-3 *:py-1 *:cursor-pointer hidden lg:block">
@@ -18,7 +18,7 @@
                 ? 'hover:text-white hover:bg-[#112F62]'
                 : 'hover:text-blue-950 hover:bg-white'
             "
-          ><a :href="route('categories')">Browse Categories</a>
+          ><Link :href="route('categories')">Browse Categories</Link>
         </li>
           <li
             class="relative group border border-transparent hover:rounded-full"
@@ -28,7 +28,7 @@
                 : 'hover:text-blue-950 hover:bg-white'
             "
           >
-           <a :href="route('all-banners')"> Find Talent</a>
+           <Link :href="route('all-banners')"> Find Talent</Link>
            <!--  <svg
               width="8"
               class="inline-block pb-1 fill-white group-hover:fill-black"
@@ -57,7 +57,7 @@
                 : 'hover:text-blue-950 hover:bg-white'
             "
           >
-          <a :href="route('find-work')">  Find Work</a>
+          <Link :href="route('find-work')">  Find Work</Link>
          <!--    <svg
               width="8"
               class="inline-block pb-1 fill-white group-hover:fill-black"
@@ -108,26 +108,26 @@
             </div> -->
           </li>
         </ul>
- 
+
         <ul class="*:inline-block *:px-3 *:py-2 *:cursor-pointer hidden lg:block ml-9">
         <li><a class="bg-[rgb(29 56 100)]-500 hover:bg-[rgb(29 56 100)]-700 text-white font-bold py-2 px-4 border-whites rounded" href="https://support.myfreelancer.com/" target="_blank" style="font-family: Poppins;">Support</a></li>
-          <li  v-if="!$page?.props?.auth?.user?.name"> <a href="/login">Login</a></li>
-          <li  v-if="!$page?.props?.auth?.user?.name"> <a href="/register">Sign Up</a></li>
-           <li  v-if="$page?.props?.auth?.user?.name"><a href="/profile">Profile</a></li>
+          <li  v-if="!$page?.props?.auth?.user?.name"> <Link href="/login">Login</Link></li>
+          <li  v-if="!$page?.props?.auth?.user?.name"> <Link href="/register">Sign Up</Link></li>
+           <li  v-if="$page?.props?.auth?.user?.name"><Link href="/profile">Profile</Link></li>
         </ul>
       </nav>
     </div>
- 
+
     <div
       v-if="openMobileMenu"
       class="absolute w-2/3 lg:w-1/5 top-22 left-0 z-50 bg-white text-black"
     >
       <ul class="text-base *:px-6 *:py-2">
         <li class="relative group border-b border-blue-200">
-           <a :href="route('all-banners')"> Find Talent</a>
+           <Link :href="route('all-banners')"> Find Talent</Link>
         </li>
         <li class="relative group border-b border-blue-200">
-            <a :href="route('find-work')">  Find Work</a>
+            <Link :href="route('find-work')">  Find Work</Link>
         </li>
         <li class="relative group border-b border-blue-200">
           <input id="drowpdown-3" class="peer hidden w-full" type="checkbox" />
@@ -147,14 +147,15 @@
         </li>
       </ul>
       <ul class="flex justify-evenly px-6 py-8">
-        <li class="font-bold underline underline-offset-3"><a href="/login">Login</a></li>
-        <li class="font-bold underline underline-offset-3"><a href="/register">Sign Up</a></li>
+        <li class="font-bold underline underline-offset-3"><Link href="/login">Login</Link></li>
+        <li class="font-bold underline underline-offset-3"><Link href="/register">Sign Up</Link></li>
       </ul>
     </div>
   </header>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import {Link} from "@inertiajs/vue3";
 const openMobileMenu = ref(false)
 const showSearchBar = ref(false)
 

@@ -12,7 +12,7 @@
         <RegisterBasicStep :step="step" :nextStep="nextStep" />
         <RegisterAccountTypeStep :step="step" :previousStep="previousStep" :nextStep="nextStep" />
         <RegisterVerifyEmailStep :step="step" :flash="flash" />
-        
+
       </div>
     </div>
   </div>

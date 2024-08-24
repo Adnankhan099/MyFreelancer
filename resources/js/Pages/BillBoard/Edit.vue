@@ -67,7 +67,7 @@ const addNewBillboard = () => {
 }
 
 const finish=()=>{
-router.post(route('bill-board.store'),{finish:true}, {
+router.post(route('bill-board.store', {billBoardId: props.billBoard.id}),{finish:true}, {
         onSuccess: () => console.log(3)
     });
 }

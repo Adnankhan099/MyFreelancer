@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
           Schema::create('bill_boards', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('users_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->string('title', 512)->nullable();
-             $table->string('price', 512)->nullable();
+            $table->string('price', 512)->nullable();
             $table->bigInteger('job_categories_id')->nullable();
             $table->bigInteger('sub_job_categories_id')->nullable();
             $table->text('tags')->charset('utf8mb4')->collation('utf8mb4_bin')->nullable();
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('video', 256)->nullable();
             $table->string('doc1', 256)->nullable();
             $table->string('doc2', 256)->nullable();
+            $table->json('additional_details')->nullable();
             $table->timestamps(0);
         });
     }

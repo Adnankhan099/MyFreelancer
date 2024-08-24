@@ -4,13 +4,13 @@
       <div class="flex justify-center  items-center space-x-4">
         <!-- Logo -->
         <div class="flex-grow">
-          <a :href="route('/')">
+          <Link :href="route('/')">
             <img
               src="@/assets/logo2.png"
               alt="Myfreelancer Logo"
               class="w-42 h-8 object-cover "
             />
-          </a>
+          </Link>
         </div>
 
         <!-- SearchBar -->
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-    
+
 
    <!--    <div class="flex justify-center items-center space-x-4 mt-4">
         <a href="dashboard">
@@ -97,6 +97,6 @@ import GroupMenu from '@/Components/Auth/Comp/GroupMenu.vue'
 import NotificationMenu from '@/Components/Auth/Comp/NotificationMenu.vue'
 import ChatMenu from '@/Components/Auth/Comp/ChatMenu.vue'
 import ProfileMenu from '@/Components/Auth/Comp/ProfileMenu.vue'
-
+import {Link} from "@inertiajs/vue3";
 const router = useRouter();
 </script>

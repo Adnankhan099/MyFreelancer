@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivityTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class JobCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, LogActivityTrait;
     protected $table = 'job_categories';
 
     protected $fillable = ['parent_id','name','status','icon','slug','banner'];

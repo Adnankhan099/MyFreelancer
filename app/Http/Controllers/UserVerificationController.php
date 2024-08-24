@@ -15,20 +15,20 @@ class UserVerificationController extends Controller
      public function store(Request $request)
    {
 
-    $verfication=Verfication::where('users_id',Auth::id())->first();
+    $verfication=Verfication::where('user_id',Auth::id())->first();
     if(empty($verfication)){
     $verfication= new Verfication();
 }
         $input = $request->all();
 
-        $input['users_id']=Auth::id();
+        $input['user_id']=Auth::id();
 
     // Update the user's address
     $verfication->fill($input)->save();
    }
 
    public function currentPhoto(Request $request){
-     $verfication=Verfication::where('users_id',Auth::id())->first();
+     $verfication=Verfication::where('user_id',Auth::id())->first();
     if(empty($verfication)){
     $verfication= new Verfication();
 }
@@ -82,7 +82,7 @@ public function govId(Request $request) {
             // Store the file using the custom name
             $path = $file->move(public_path('uploads'), $customName);
 $path = 'uploads/' . $customName;
-              $verfication=Verfication::where('users_id',Auth::id())->first();
+              $verfication=Verfication::where('user_id',Auth::id())->first();
     if(empty($verfication)){
     $verfication= new Verfication();
 }
@@ -104,7 +104,7 @@ $path = 'uploads/' . $customName;
             // Store the file using the custom name
             $path = $file->move(public_path('uploads'), $customName);
 $path = 'uploads/' . $customName;
-              $verfication=Verfication::where('users_id',Auth::id())->first();
+              $verfication=Verfication::where('user_id',Auth::id())->first();
     if(empty($verfication)){
     $verfication= new Verfication();
 }
@@ -127,7 +127,7 @@ $path = 'uploads/' . $customName;
             // Store the file using the custom name
             $path = $file->move(public_path('uploads'), $customName);
                $path = 'uploads/' . $customName;
-              $verfication=Verfication::where('users_id',Auth::id())->first();
+              $verfication=Verfication::where('user_id',Auth::id())->first();
     if(empty($verfication)){
     $verfication= new Verfication();
 }

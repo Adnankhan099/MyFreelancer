@@ -3,12 +3,12 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
-console.log( import.meta.env.MIX_PUSHER_APP_CLUSTER)
+console.log(import.meta.env.MIX_PUSHER_APP_CLUSTER)
 window.echo = new Echo({
-  broadcaster: 'pusher',
-  key: import.meta.env.MIX_PUSHER_APP_KEY,
-  cluster: import.meta.env.MIX_PUSHER_APP_CLUSTER,
-   encrypted: true,
+    broadcaster: 'pusher',
+    key: import.meta.env.MIX_PUSHER_APP_KEY,
+    cluster: import.meta.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: true,
 });
 
 window.axios = axios;
