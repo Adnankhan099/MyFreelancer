@@ -23,7 +23,13 @@ class ChatController extends Controller
 
     public function getMessages($id)
     {
-        $messages = Message::where('conversation_id', $id)->with('user')->get();
+        $messages = Message::where('conversation_id', $id)
+            ->with([
+                'user',
+                'custom_offer.by',
+                'custom_offer.for',
+                'custom_offer.job'
+            ])->get();
         return response()->json($messages);
     }
 
@@ -50,6 +56,36 @@ class ChatController extends Controller
     public function getUser()
     {
         return response()->json(auth()->user());
+    }
+
+    public function attachFileToConversation(Request $request){
+        $request->validate([
+            'conversation_id' => 'required|numeric',
+            'file' => 'required'
+        ]);
+        $conversation = Conversation::findOrFail(intval($request->conversation_id));
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $time = time();
+
+            $filename = "attachment_{$time}.{$file->getClientOriginalExtension()}"; // You may adjust the extension according to the mime type
+            $path = public_path('uploads/' . $filename);
+
+            move_uploaded_file($file, $path);
+            $filepath = 'uploads/' . $filename;
+            $message = new Message();
+            $message->conversation_id = $conversation->id;
+            $message->user_id = auth()->id();
+            $message->content = '';
+            $message->attachment = $filepath;
+            $message->save();
+            broadcast(new MessageSent($message));
+            return response()->json(['status' => 'Message sent!']);
+        }
+        return response()->status(400)->json([
+            'success' => false,
+            'reason' => 'No File Attached'
+        ]);
     }
 }
 

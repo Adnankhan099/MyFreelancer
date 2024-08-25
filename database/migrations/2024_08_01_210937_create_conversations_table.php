@@ -10,8 +10,8 @@ class CreateConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-             $table->bigInteger('sender_id')->nullable();
-              $table->bigInteger('receiver_id')->nullable();
+            $table->foreignUuid('sender_id')->references('id')->on('users');
+            $table->foreignUuid('receiver_id')->references('id')->on('users');
             $table->string('title')->nullable(); // Optional title for the conversation
             $table->timestamps();
         });

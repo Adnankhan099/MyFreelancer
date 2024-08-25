@@ -19,11 +19,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-       public function create(): Response
+    public function create(): Response
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),'flash' => session('flash')
+            'status' => session('status'), 'flash' => session('flash')
         ]);
     }
 
@@ -42,7 +42,6 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
- 
 
     /**
      * Handle an incoming authentication request.
@@ -52,12 +51,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
- $user = Auth::user();
-         if ($user->hasRole('Admin')) {
-        return redirect()->intended(route('admin-dashboard'));
-    } else {
-        return redirect()->intended(route('profile.index')); // Replace 'other-profile.index' with your desired route for non-admin users
-    }
+        $user = Auth::user();
+        if ($user->hasRole('Admin')) {
+            return redirect()->intended(route('admin-dashboard'));
+        } else {
+            return redirect()->intended(route('profile.index')); // Replace 'other-profile.index' with your desired route for non-admin users
+        }
 
         return redirect()->intended(route('profile.index', absolute: false));
     }

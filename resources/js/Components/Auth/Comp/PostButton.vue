@@ -1,14 +1,17 @@
 <script setup>
 import { useRouter } from "vue-router";
+import {Link} from "@inertiajs/vue3";
+import {useProfileStore} from "@/Stores/ProfileStore.js";
 const router = useRouter();
+const profileStore = useProfileStore();
 const goToPostJob = () => router.push({ path: "/app/post-job" });
 </script>
 
 <template>
-  <a :href="route('job.create')" v-if="$page.props.user.roles.includes('Employer')" style="color:white" class="py-1 text-xs btn-text" >
+  <Link v-if="profileStore.isEmployer" :href="route('job.create')" style="color:white" class="py-1 text-xs btn-text" >
     <i class="mdi mdi-plus mr-2"></i>
     Post Job
-  </a>
+  </Link>
 </template>
 
 <style scoped>

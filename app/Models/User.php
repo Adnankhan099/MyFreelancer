@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Profile;
+use App\Traits\LogActivityTrait;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserAccountSetting;
@@ -16,7 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasUuids, LogActivityTrait;
 
     public static function boot() {
         parent::boot();
@@ -71,35 +73,31 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
         * Get the user that owns the profile.
     */
-    public function profile( ){  
-        
-        return $this->hasMany(Profile::class,'users_id');
+    public function profile_detail( ){
+
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
-     public function profile_detail( ){  
-        
-        return $this->belongsTo(Profile::class,'id','users_id');
-    }
-    
+
     public function conversations(){
 
-        return $this->hasMany(Conversation::class,'users_id');
+        return $this->hasMany(Conversation::class,'user_id');
     }
-    
+
 
     /**
         * Get the user that owns the user account settings.
     */
-    
+
     public function sendPasswordResetNotification($token)
     {
 
        $userRoles = $this->getRoleNames()->toArray();
-    
-        
+
+
 
         $email_template = EmailTemplate::select('content','role')
         ->where(['type' => 'reset_password' , 'status' => 'active', 'role' => $userRoles[0]])->latest()->first();
-    
+
         if(!empty($email_template)){
             $template_data =  unserialize($email_template->content);
             $params = array();
@@ -108,9 +106,9 @@ class User extends Authenticatable implements MustVerifyEmail
                 'user_name'             => '',
                 'account_email'         => $this->email,
                 'token'                 => $token,
-                'email_subject'         => !empty($template_data['subject']) ?   $template_data['subject'] : '',     
-                'email_greeting'        => !empty($template_data['greeting']) ?  $template_data['greeting'] : '',     
-                'email_content'         => !empty($template_data['content']) ?   $template_data['content'] : '',     
+                'email_subject'         => !empty($template_data['subject']) ?   $template_data['subject'] : '',
+                'email_greeting'        => !empty($template_data['greeting']) ?  $template_data['greeting'] : '',
+                'email_content'         => !empty($template_data['content']) ?   $template_data['content'] : '',
             );
 
             try {

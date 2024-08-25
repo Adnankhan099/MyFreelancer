@@ -136,6 +136,7 @@
 <script setup>
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+import {route} from "ziggy-js";
 const  baseUrl=window.Laravel.baseUrl
 
 
@@ -144,6 +145,7 @@ const props = defineProps({
     type:Object,
   }
 });
+
 
 const image1 = props.billBoardDraft?.img1? baseUrl+props.billBoardDraft?.img1:ref(null)
 const image2 =  props.billBoardDraft?.img2? baseUrl+props.billBoardDraft?.img2:ref(null)
@@ -160,19 +162,19 @@ function onFileChange(e, i) {
 
     if (i === 1){
         createImage(files[0], image1);
-     router.post(route('billboard-attach'), { img1: files[0]}, {
+     router.post(route('billboard-attach', props.billBoardDraft.id), { img1: files[0]}, {
             onSuccess: () => console.log(1),
         })
  }
     else if (i === 2){
         createImage(files[0], image2);
-         router.post(route('billboard-attach'), { img2: files[0]}, {
+         router.post(route('billboard-attach', props.billBoardDraft.id), { img2: files[0]}, {
             onSuccess: () => console.log(1),
         })
     }
     else if (i === 3){
         createImage(files[0], image3);
-         router.post(route('billboard-attach'), { img3: files[0]}, {
+         router.post(route('billboard-attach', props.billBoardDraft.id), { img3: files[0]}, {
             onSuccess: () => console.log(1),
         })
     }

@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivityTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    use HasFactory;
-
+    use HasFactory, LogActivityTrait;
      protected $fillable = [
         'full_name',
-        'users_id',
+        'user_id',
         'screen_name',
         'home_town',
         'countries_id',
@@ -31,4 +31,8 @@ class Profile extends Model
         'language',
         'overview'
     ];
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

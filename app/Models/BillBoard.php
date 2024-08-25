@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivityTrait;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BillBoard extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids, LogActivityTrait;
 
        protected $fillable = [
         'title',
         'job_categories_id',
         'sub_job_categories_id',
         'tags',
-        'users_id',
+        'user_id',
         'price',
         'pricing_description',
         'img1',
@@ -23,9 +25,10 @@ class BillBoard extends Model
         'video',
         'doc1',
         'doc2',
+        'additional_details'
     ];
 
     public function user_detail(){
-      return $this->belongsTo(User::class,'users_id')->with('profile_detail');
+      return $this->belongsTo(User::class,'user_id')->with('profile_detail');
     }
 }

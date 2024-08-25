@@ -13,7 +13,7 @@ return new class extends Migration
     {
        Schema::create('verfications', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('users_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->string('accountType', 256)->nullable();
             $table->string('accountInfo', 256)->nullable();
             $table->string('first_name', 256)->nullable();

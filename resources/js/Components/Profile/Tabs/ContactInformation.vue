@@ -1,6 +1,6 @@
 <template>
 
-        
+
   <div class="w-full">
     <div class="border flex flex-col gap-5 shadow-sm">
       <div class="border-b bg-card-header">
@@ -52,6 +52,6 @@ const showProfileChange =()=>{
   changeEmailAddress.value=(false)
 }
 const changeEmailAddress=ref(false)
-console.log(props.userDetail)
+// console.log(props.userDetail)
 
 </script>

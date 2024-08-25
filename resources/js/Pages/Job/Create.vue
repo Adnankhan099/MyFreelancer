@@ -144,7 +144,7 @@
         <div class="grid grid-cols-3 gap-x-3">
           <label>
             <span>Visible to:</span>
-            <select  v-model="form.visile_to" class="h-10 border-b-2 border-gray-300 bg-white w-full">
+            <select  v-model="form.visible_to" class="h-10 border-b-2 border-gray-300 bg-white w-full">
               <option value="">SELECT</option>
               <option>Everyone</option>
               <option>MyFreelancer Freelancers</option>
@@ -181,7 +181,7 @@
       </template>
     </multiselect>
           </label>
-         
+
           <label>
             <span>Get Quotes Till:</span>
             <input class="p-2 mt-1 border-b-2 border-gray-300 w-full" type="date">
@@ -192,7 +192,7 @@
         Submit Job
       </button>
     </div>
-   
+
       <div class="col-span-2 text-sm grid justify-items-center">
         <div class="space-y-3">
           <p class="font-bold text-center text-lg">It's free to post a job</p>
@@ -208,7 +208,7 @@
                 icon="mdi-file-document-edit-outline"></v-icon>
               <span>Create agreements mutually</span>
             </li>
-           
+
           </ul>
           <div class="font-semibold py-4 border-b border-solid px-5">
             Have a large number of Freelancer orjobs to manage?<br />
@@ -218,7 +218,7 @@
             For assistance or inquiries, call us at 1-412-687-2365 between 9 AN and 6 PM EST (Monday - Friday)
           </div>
         </div>
-      
+
       </div>
      </form>
   </div>
@@ -263,7 +263,7 @@ const form = useForm({
     skills: ref(null),
     countries:ref([]),
     location: ref(null),
-    visile_to: ref(null),
+    visible_to: ref(null),
 });
 
 

@@ -3,7 +3,7 @@
 <template>
     <div class="stepper-window-item">
         <div class="card space-y-3 p-4 shadow-md rounded-lg">
-            
+
             <div class="h-48" v-html="content" ref="editor">
             </div>
                       <div class="mt-4 col-span-3 text-right">
@@ -61,7 +61,7 @@ onMounted(() => {
 const submitForm = () => {
     if (quillInstance.value) {
         const pricingDescription = quillInstance.value.root.innerHTML;
-        router.post(route('bill-board.store'), { pricing_description: pricingDescription }, {
+        router.post(route('bill-board.store',{billBoardId: props.billBoardDraft.id}), { pricing_description: pricingDescription }, {
             onSuccess: () => props.nextStep(),
         });
     }

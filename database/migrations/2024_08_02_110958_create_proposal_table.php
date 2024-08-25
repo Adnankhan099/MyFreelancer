@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('proposals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('job_id')->nullable();
-            $table->bigInteger('users_id')->nullable();
+            $table->foreignUuid('user_id')->nullable()->references('id')->on('users');
             $table->text('proposal_content')->nullable();
             $table->decimal('price', 11, 2)->nullable();
             $table->string('time', 256)->nullable();

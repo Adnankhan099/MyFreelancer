@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivityTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
-    use HasFactory;
+    use HasFactory, LogActivityTrait;
 
       protected $fillable = ['sender_id', 'receiver_id','title'];
 

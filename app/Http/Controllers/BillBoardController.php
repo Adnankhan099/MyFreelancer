@@ -14,75 +14,84 @@ use Inertia\Inertia;
 
 class BillBoardController extends Controller
 {
-    
 
-    public function store(Request $request){
 
-        $billBoard=BillBoard::where('id',session('billBoardId'))->first();
-        if(empty($billBoard)){
-            $billBoard= new BillBoard(); 
+    public function store(Request $request)
+    {
+        $billBoard = null;
+        if($request->has('billBoardId')){
+            $billBoard = BillBoard::find($request->get('billBoardId'));
         }
-       if($request->has('finish')){
-        Session::put(['billBoardId'=>null]);
-        return redirect('profile')->with('response', $billBoard);
-       }
 
+        if (!isset($billBoard)) {
+            $billBoard = new BillBoard();
+        }
+        if ($request->has('finish')) {
+            Session::put(['billBoardId' => null]);
+            return redirect('profile')->with('response', $billBoard);
+        }
+        if($request->has('additional_details')){
+            $request->replace(array_merge($request->all(), [
+                'additional_details' => json_encode($request->get('additional_details', [])), // Replaces key1 with new_value1
+            ]));
+        }
         $input = $request->all();
-$input['users_id']=Auth::id();
-if($request->has('tags')){
-    $input['tags']=json_encode($request->tags);
+        $input['user_id'] = Auth::id();
+        if ($request->has('tags')) {
+            $input['tags'] = json_encode($request->tags);
 
-}
-    // Update the user's address
-    $billBoard->fill($input)->save();
-   
-    Session::put(['billBoardId'=>$billBoard->id]);
+        }
+        // Update the user's address
+        $billBoard->fill($input)->save();
+
+        Session::put(['billBoardId' => $billBoard->id]);
 
 
-
-    return back()->with('response', $billBoard);
+        return back()->with('response', $billBoard);
 
     }
 
-     public function edit(BillBoard $billBoard)
+    public function edit(BillBoard $billBoard)
     {
-        Session::put(['billBoardId'=>$billBoard->id]);
         return Inertia::render('BillBoard/Edit', ['billBoard' => $billBoard]);
     }
 
-    public function categoryList(){
-        $categories=JobCategory::where('status','Active')->where('parent_id',null)->get();
+    public function categoryList()
+    {
+        $categories = JobCategory::where('status', 'Active')->where('parent_id', null)->get();
 
         return json_encode($categories);
     }
 
-    public function subCategories($id){
-       $categories=JobCategory::with('child_categories')->where('status','Active')->where('parent_id',$id)->get();
+    public function subCategories($id)
+    {
+        $categories = JobCategory::with('child_categories')->where('status', 'Active')->where('parent_id', $id)->get();
 
         return json_encode($categories);
     }
 
-    public function billBoardAttchs(Request $request){
-         if ($request->hasFile('img1')) {
+    public function billBoardAttchs(Request $request, $id)
+    {
+        if ($request->file('img1') !== null) {
             $file = $request->file('img1');
         }
-        if ($request->hasFile('img2')) {
+        if ($request->file('img2') !== null) {
             $file = $request->file('img2');
         }
-        if ($request->hasFile('img3')) {
+        if ($request->file('img3') !== null) {
             $file = $request->file('img3');
         }
 
-         if ($request->hasFile('video')) {
+        if ($request->file('video') !== null) {
             $file = $request->file('video');
         }
-         if ($request->hasFile('doc1')) {
+        if ($request->file('doc1') !== null) {
             $file = $request->file('doc1');
         }
-         if ($request->hasFile('doc2')) {
+        if ($request->file('doc2') !== null) {
             $file = $request->file('doc2');
         }
-        if(!empty($file)){
+        if (!empty($file)) {
             $originalName = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
 
@@ -91,36 +100,33 @@ if($request->has('tags')){
 
             // Store the file using the custom name
             $path = $file->move(public_path('uploads'), $customName);
-$path = 'uploads/' . $customName;
-}
-              $billBoard=BillBoard::where('id',session('billBoardId'))->first();
-    if(empty($billBoard)){
-    $billBoard= new billBoard();
-}
+            $path = 'uploads/' . $customName;
 
-if ($request->hasFile('img1')) {
-     $billBoard->img1=$path;
-      $billBoard->save();
-      }  
-      if ($request->hasFile('img2')) {
-     $billBoard->img2=$path;
-      $billBoard->save();
-      } 
-      if ($request->hasFile('img3')) {
-     $billBoard->img3=$path;
-      $billBoard->save();
-      }  
-      if ($request->hasFile('video')) {
-     $billBoard->video=$path;
-      $billBoard->save();
-      }  
-      if ($request->hasFile('doc1')) {
-     $billBoard->doc1=$path;
-      $billBoard->save();
-      }  
-      if ($request->hasFile('doc2')) {
-     $billBoard->doc2=$path;
-      $billBoard->save();
-      }     
+        }
+        $billBoard = BillBoard::findOrFail($id);
+        if ($request->file('img1') !== null) {
+            $billBoard->img1 = $path;
+            $billBoard->save();
+        }
+        if ($request->file('img2') !== null) {
+            $billBoard->img2 = $path;
+            $billBoard->save();
+        }
+        if ($request->file('img3') !== null) {
+            $billBoard->img3 = $path;
+            $billBoard->save();
+        }
+        if ($request->file('video') !== null) {
+            $billBoard->video = $path;
+            $billBoard->save();
+        }
+        if ($request->file('doc1') !== null) {
+            $billBoard->doc1 = $path;
+            $billBoard->save();
+        }
+        if ($request->file('doc2') !== null) {
+            $billBoard->doc2 = $path;
+            $billBoard->save();
+        }
     }
 }

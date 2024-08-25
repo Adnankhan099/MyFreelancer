@@ -27,8 +27,8 @@
             <p class="text-center mt-6 font-bold">Verifications</p>
             <div class="mt-6">
              <!--    <div class="flex items-center"><span class="flex gap-x-2"><img width="16" src="@/assets/new/user-check-solid.svg" alt="User Check Icon"/>Preferred Freelancer</span> <img width="12" src="@/assets/new/check-solid.svg" class="ml-auto" alt="Check Icon"/></div> -->
-               
-                
+
+
                 <div class="flex items-center" v-if="props.profileFront?.facebook_status"><span class="flex gap-x-2"><img width="16" src="@/assets/new/square-facebook.svg" alt="Facebook Icon"/>Facebook connected</span> <img width="12" src="@/assets/new/check-solid.svg" class="ml-auto" alt="Check Icon"/></div>
                  <div class="flex items-center" v-if="props.profileFront?.whatsapp_status"><span class="flex gap-x-2"><span class="mdi mdi-skype  text-2xl text-[green]"></span> Skype connected</span> <img width="12" src="@/assets/new/check-solid.svg" class="ml-auto" alt="Check Icon"/></div>
                 <div class="flex items-center" v-if="props.profileFront?.whatsapp_status"><span class="flex gap-x-2"><span class="mdi mdi-whatsapp  text-lg text-[green]"></span>Whatsapp connected</span> <img width="12" src="@/assets/new/check-solid.svg" class="ml-auto" alt="Check Icon"/></div>

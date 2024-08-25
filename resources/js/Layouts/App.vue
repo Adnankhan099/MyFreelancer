@@ -12,9 +12,8 @@ import FooterApp from './../Components/Landing/Footer.vue'
 </script>
 
 <template>
-      <HeaderApp />
+    <HeaderApp />
 
-      
-            <slot />
+            <slot/>
       <FooterApp :categories="categories" />
 </template>

@@ -15,15 +15,22 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('job_categories_id')->nullable();
             $table->string('title', 512)->nullable();
-             $table->string('slug', 512)->nullable();
-              $table->string('users_id', 512)->nullable();
+            $table->string('slug', 512)->nullable();
+            $table->foreignUuid('user_id')
+                ->nullable()
+                ->references('id')
+                ->on('users');
             $table->text('description')->nullable();
             $table->text('countries')->nullable();
             $table->string('price', 512)->nullable();
             $table->string('min_price', 512)->nullable();
             $table->string('max_price', 512)->nullable();
-            $table->string('visile_to', 512)->nullable();
+            $table->string('visible_to', 512)->nullable();
             $table->date('date_till')->nullable();
+            $table->foreignUuid('assigned_to')
+                ->nullable()
+                ->references('id')
+                ->on('users');
             $table->string('status', 512)->nullable();
             $table->timestamps(0);
         });
