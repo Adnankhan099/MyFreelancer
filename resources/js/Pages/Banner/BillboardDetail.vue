@@ -82,7 +82,7 @@
                                     <p class="text-gray-700 text-xl font-medium ">
                                         {{ billBoardDetail?.user_detail?.profile_detail?.headline }}</p>
                                     <p class="text-gray-700 mt-2 w-full">
-                                        {{ limitText(billBoardDetail?.user_detail?.profile_detail?.overview, 300) }}</p>
+                                        {{ limitText(billBoardDetail?.user_detail?.profile_detail?.overview ?? '', 300) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +220,7 @@ import {route} from "ziggy-js";
 
 const baseUrl = window.Laravel.baseUrl
 function limitText(text, maxLength) {
-    if (text.length && text.length > maxLength) {
+    if (typeof text === 'string' && text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
     } else {
         return text;
