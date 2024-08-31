@@ -48,7 +48,7 @@
                                     <p class="text-gray-700 font-bold">
                                         {{ jobDetail?.user_detail?.profile_detail?.headline }}</p>
                                     <p class="text-gray-700 mt-2">{{
-                                            limitText(jobDetail?.user_detail?.profile_detail?.overview, 300)
+                                            limitText(jobDetail?.user_detail?.profile_detail?.overview ?? '', 300)
                                         }}</p>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@ const props = defineProps({
 })
 
 function limitText(text, maxLength) {
-    if (text.length > maxLength) {
+    if (typeof text === 'string' && text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
     } else {
         return text;
