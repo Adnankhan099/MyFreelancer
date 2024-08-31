@@ -220,7 +220,7 @@ import {route} from "ziggy-js";
 
 const baseUrl = window.Laravel.baseUrl
 function limitText(text, maxLength) {
-    if (text.length > maxLength) {
+    if (text.length && text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
     } else {
         return text;
